@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 export default class Signup extends React.Component {
 
@@ -54,10 +55,23 @@ export default class Signup extends React.Component {
         const credentials = {
             name: event.target.name.value,
             email: event.target.email.value,
-            password: event.target.password.value,
-            favoriteDrinks:[]
+            password: event.target.password.value
+            // favoriteDrinks:[]
         };
-        axios.post('/api/user/', credentials);
-    }
+        axios.get(`/api/user/search/findByEmail?email=${credentials.email}`)
+            .then(user => {
+                console.log('whaaa');
+                if (Number(user.status) === 404) {
+                    axios.post('/api/user/', credentials)
+                        .then(user => (
+                            <div>something</div>
+                        ))
+
+                }
+                else {
+                    return (<div>noooooo</div>)
+                }
+            });
+    };
 }
 

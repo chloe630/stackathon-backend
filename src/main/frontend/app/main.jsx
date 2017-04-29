@@ -42,7 +42,7 @@ const onLoginSubmit = event => {
         password: event.target.password.value
     };
     console.log('credentials: ', credentials);
-    axios.get(`/api/user/${credentials.email}`)
+    axios.get(`/api/user/search/${credentials.email}`)
         .then(user => {
             if (!user)  initialState.currentUser = {};
             else initialState.currentUser = user;
