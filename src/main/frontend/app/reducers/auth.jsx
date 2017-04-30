@@ -71,7 +71,7 @@ export const loginAndGoToUser = credentials => dispatch => {
     dispatch(login(credentials))
         .then(user => {
             console.log('wht is this', user);
-            browserHistory.push(`/user/${user.data.name}`)
+            browserHistory.push(`/user/${user.name}`)
         })
         .catch(err => console.error('Problem logging in:', err));
 };

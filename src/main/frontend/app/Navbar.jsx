@@ -31,7 +31,7 @@ class Navbar extends React.Component {
                 <ul className="nav navbar-nav navbar-right">
                     <li>
                         <button className="navbar-btn btn btn-default"> {name}'s page
-                            <Link to = {`/user/${id}`} data-activates="slide-out" className="button-collapse"><i className="material-icons">menu</i></Link>
+                            <Link to = {`/user/${name}`} data-activates="slide-out" className="button-collapse"><i className="material-icons">menu</i></Link>
                         </button>
                         <button
                             className="navbar-btn btn btn-default"
