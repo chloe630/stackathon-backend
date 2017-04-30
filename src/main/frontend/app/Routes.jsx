@@ -8,6 +8,7 @@ import SignUp from './SignUp';
 import SingleUser from './SingleUser';
 import AllRecipes from './AllRecipes';
 import SingleRecipe from './SingleRecipe';
+import SearchRecipesResult from './SearchRecipesResult';
 import Input from './Input';
 // import { fetchUsers } from './redux/users';
 // import { fetchStories, fetchStory } from './redux/stories';
@@ -18,7 +19,8 @@ const Routes = ({ fetchInitialData, onStoryEnter }) => (
     <Router history={ hashHistory }>
         <Route path="/" component={ Root } >
             <Route path="/search" component = { Input }/>
-            <Route path="/recipes" component={ AllRecipes }/>
+            <Route path="/recipes" component = { SearchRecipesResult } />
+            <Route path="/topRecipes" component={ AllRecipes }/>
             <Route path="/recipes/:id" component={ SingleRecipe } />
             <Route path="/login" component={ Login } />
             <Route path="/signup" component={ SignUp } />

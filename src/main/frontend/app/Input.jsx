@@ -9,7 +9,12 @@ export default class Input extends React.Component {
         };
         this.onChangeAdd = this.onChangeAdd.bind(this);
         this.onChangeRemove = this.onChangeRemove.bind(this);
+        this.clearLocalStorage = this.clearLocalStorage.bind(this);
         this.onChangeIngredient = this.onChangeIngredient.bind(this);
+    }
+
+    clearLocalStorage() {
+        localStorage.setItem("ingredients", "");
     }
 
     onChangeIngredient(event) {
@@ -26,23 +31,34 @@ export default class Input extends React.Component {
         console.log("add: ", this.state.ingredient);
         let updatedArr = this.state.ingredients.slice();
         updatedArr.push(this.state.ingredient);
+        let currentIngredients =localStorage.getItem("ingredients");
+        if (currentIngredients == "") {
+            localStorage.setItem("ingredients", this.state.ingredient);
+        }
+        else {
+            localStorage.setItem("ingredients", currentIngredients+" "+this.state.ingredient);
+
+        }
+        console.log(localStorage);
         this.state.ingredient = "";
         this.setState({ ingredients: updatedArr });
     }
 
-    onChangeRemove() {
-        let val = event.target.value.toLowerCase();
-        let updatedArr = this.state.ingredients.slice();
-        let index = updatedArr.indexOf(val);
-        if (index > 0) {
-            updatedArr.splice(index, 1);
-            this.setState({ ingredients: updatedArr });
-        }
+    onChangeRemove(event) {
+        let val = $(event.target).closest('.ingredient').text().split("remove")[0];
+        let currentIngredients = localStorage.getItem("ingredients").split(" ");
+        let index = currentIngredients.indexOf(val);
+        currentIngredients.splice(index, 1);
+        console.log("removed localStorage: ", currentIngredients);
+        localStorage.setItem("ingredients", currentIngredients.join(" "));
+        this.setState({ ingredients: currentIngredients });
     }
 
     render() {
-        const ingredients = this.state;
-        console.log("this.state.ingredients", ingredients);
+        // if ()
+        let ingredients = localStorage.getItem("ingredients").split(" ");
+        // if (ingredients == "")
+        console.log("localStorage ingredients", ingredients);
         return (
             <div >
                 <div className="row">
@@ -57,12 +73,12 @@ export default class Input extends React.Component {
                         </div>
                         <div className = "offset-s6 col s6">
                             {
-                                ingredients.length > 0 && (
+                                (ingredients[0] !== "") && (
                                     <table className="collection with-header highlight">
                                         <thead className="collection-header"><h4>Your Ingredients!</h4></thead>
                                         {
                                             ingredients.map(ingredient => (
-                                                <tr className="collection-item"><th>{ ingredient }
+                                                <tr className="collection-item"><th className="ingredient">{ ingredient }
                                                     <button onClick = {this.onChangeRemove} className="btn-floating btn-large waves-effect waves-light red">
                                                         <i className="material-icons">remove</i>
                                                     </button></th></tr>
@@ -70,6 +86,9 @@ export default class Input extends React.Component {
                                             ))
                                         }
                                         <button className="btn waves-effect waves-light" type="submit" name="action" ><Link to ="/recipes">Recipe</Link>
+                                            <i className="material-icons right">send</i>
+                                        </button>
+                                        <button onClick = { this.clearLocalStorage } className="btn waves-effect waves-light" type="submit" >clear ingredients!
                                             <i className="material-icons right">send</i>
                                         </button>
                                     </table>
