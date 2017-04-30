@@ -17,10 +17,6 @@ const init   = ingredients => ({ type: INITIALIZE, ingredients });
 //
 //
 
-const initial = {
-    ingredients : []
-}
-
 export default function reducer (state = inital, action) {
     const newState = Object.assign({}, initial);
     switch (action.type) {

@@ -9,20 +9,7 @@ export default class SingleUser extends React.Component{
         this.state = this.props.currentUser;
     }
 
-    // componentDidMount() {
-    //     let user = this.state;
-    //     console.log('waaaa', user);
-    //     axios.get(`/api/users/search/findByName?name=${user.name}`)
-    //         .then(user => {
-    //             console.log("this is a singleuser:",user.data);
-    //             user = user.data;
-    //             this.setState({ currentUser : user.data });
-    //         });
-    //     console.log("tada last one", this.state.currentUser);
-    // }
-
     render(){
-        console.log('this.state.currentUser', this.state);
         $('.button-collapse').sideNav({
                 menuWidth: 300, // Default is 300
                 edge: 'right', // Choose the horizontal origin
@@ -30,6 +17,7 @@ export default class SingleUser extends React.Component{
                 draggable: true // Choose whether you can drag to open on touch screens
             }
         );
+            console.log("im a single user!");
         return (
 
             <div>
@@ -48,6 +36,7 @@ export default class SingleUser extends React.Component{
                     <li><a className="subheader">Subheader</a></li>
                     <li><a className="waves-effect" href="#!">Third Link With Waves</a></li>
                 </ul>
+                <button className="navbar-btn btn btn-default"> {name}'s page></button>
             </div>
         );
     }

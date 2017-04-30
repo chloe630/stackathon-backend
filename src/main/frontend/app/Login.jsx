@@ -26,6 +26,7 @@ class Login extends React.Component {
             password: event.target.password.value
         };
         this.props.login(credentials);
+        this.setState({ loggedIn: true });
 
     }
 
