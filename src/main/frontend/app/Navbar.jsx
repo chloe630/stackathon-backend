@@ -52,7 +52,7 @@ class Navbar extends React.Component {
                 <div className="nav-wrapper #90caf9 blue lighten-3">
                     <Link to = "/" className="brand-logo">Drinker's heaven</Link>
                     <ul id="nav-mobile" className="right hide-on-med-and-down">
-                        <li><Link to="/recipes">Top 10 Drinks</Link></li>
+                        <li><Link to="/topRecipes">Top 10 Drinks</Link></li>
                         <li><Link to="/search">Find my cocktail!!</Link></li>
                         <li>
                             {

@@ -55,9 +55,10 @@ export default class Input extends React.Component {
     }
 
     render() {
-        // if ()
+        if (localStorage.getItem("ingredients") == null) {
+            localStorage.setItem("ingredients", "");
+        }
         let ingredients = localStorage.getItem("ingredients").split(" ");
-        // if (ingredients == "")
         console.log("localStorage ingredients", ingredients);
         return (
             <div >
