@@ -6,24 +6,23 @@ export default class SingleUser extends React.Component{
 
     constructor(props) {
         super(props);
-        this.state = Object.assign({}, this.props, {
-            user: {}
-        });
+        this.state = this.props.currentUser;
     }
 
-    componentDidMount() {
-        let user = this.props.params;
-        console.log('waaaa', user.id);
-        axios.get(`/api/users/${user.id}`)
-            .then(user => {
-                console.log("this is a singleuser:",user.data);
-                user = user.data;
-                this.setState({ user });
-            });
-        console.log("tada last one", this.state.user);
-    }
+    // componentDidMount() {
+    //     let user = this.state;
+    //     console.log('waaaa', user);
+    //     axios.get(`/api/users/search/findByName?name=${user.name}`)
+    //         .then(user => {
+    //             console.log("this is a singleuser:",user.data);
+    //             user = user.data;
+    //             this.setState({ currentUser : user.data });
+    //         });
+    //     console.log("tada last one", this.state.currentUser);
+    // }
 
     render(){
+        console.log('this.state.currentUser', this.state);
         $('.button-collapse').sideNav({
                 menuWidth: 300, // Default is 300
                 edge: 'right', // Choose the horizontal origin

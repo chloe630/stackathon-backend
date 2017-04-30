@@ -16,26 +16,50 @@ const remove = id    => ({ type: REMOVE, id });
 const update = user  => ({ type: UPDATE, user });
 
 
+export default function reducer (users = [], action) {
+    switch (action.type) {
+
+        case INITIALIZE:
+            return action.users;
+
+        case CREATE:
+            return [action.user, ...users];
+
+        case REMOVE:
+            return users.filter(user => user.id !== action.id);
+
+        case UPDATE:
+            return users.map(user => (
+                action.user.id === user.id ? action.user : user
+            ));
+
+        default:
+            return users;
+    }
+}
+
+
+
 export const fetchUsers = () => dispatch => {
-    axios.get('/api/users')
+    axios.get('/api/user')
         .then(res => dispatch(init(res.data)));
 };
 
 // optimistic
 export const removeUser = id => dispatch => {
     dispatch(remove(id));
-    axios.delete(`/api/users/${id}`)
+    axios.delete(`/api/user/${id}`)
         .catch(err => console.error(`Removing user: ${id} unsuccesful`, err));
 };
 
 export const addUser = user => dispatch => {
-    axios.post('/api/users', user)
+    axios.post('/api/user', user)
         .then(res => dispatch(create(res.data)))
         .catch(err => console.error(`Creating user: ${user} unsuccesful`, err));
 };
 
 export const updateUser = (id, user) => dispatch => {
-    axios.put(`/api/users/${id}`, user)
+    axios.put(`/api/user/${id}`, user)
         .then(res => dispatch(update(res.data)))
         .catch(err => console.error(`Updating user: ${user} unsuccesful`, err));
 };

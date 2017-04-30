@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { create as createUser } from './users';
+import { create as createUser } from './user';
 import { browserHistory } from 'react-router';
 
 /* ------------------    ACTIONS    --------------------- */
@@ -14,13 +14,22 @@ const remove  = () => ({ type: REMOVE });
 
 /* ------------------    REDUCER    --------------------- */
 
+// const initialState = {
+//     currentUser : null,
+//     loggedIn: null
+// }
 export default function reducer (currentUser = null, action) {
+    // const newState = Object.assign({}, initialState);
     switch (action.type) {
 
         case SET:
+            // newState.currentUser = action.user;
+            // newState.loggedIn = action.user.id;
             return action.user;
 
         case REMOVE:
+            // newState.currentUser = null;
+            // newState.loggedIn = null;
             return null;
 
         default:
@@ -49,23 +58,31 @@ const resToData = res => res.data;
 
 // a "simple" dispatcher which uses API, changes state, and returns a promise.
 export const login = credentials => dispatch => {
-    return axios.put('/api/auth/me', credentials)
-        .then(resToData)
+    return axios.get(`/api/user/search/findByEmail?email=${credentials.email}`, credentials)
         .then(user => {
-            dispatch(set(user));
-            return user;
+            console.log("user logged in ok? " , user.data);
+            dispatch(set(user.data));
+            return user.data;
         });
 };
 
 // a "composed" dispatcher which uses the "simple" one, then routes to a page.
 export const loginAndGoToUser = credentials => dispatch => {
     dispatch(login(credentials))
-        .then(user => browserHistory.push(`/users/${user.id}`))
+        .then(user => {
+            console.log('wht is this', user);
+            browserHistory.push(`/user/${user.data.name}`)
+        })
         .catch(err => console.error('Problem logging in:', err));
 };
 
 export const signup = credentials => dispatch => {
-    return axios.post('/api/auth/me', credentials)
+    return axios(
+        {
+            method: 'post',
+            url: '/api/recipes',
+            data: credentials
+        })
         .then(resToData)
         .then(user => {
             dispatch(createUser(user)); // so new user appears in our master list
@@ -76,13 +93,13 @@ export const signup = credentials => dispatch => {
 
 export const signupAndGoToUser = credentials => dispatch => {
     dispatch(signup(credentials))
-        .then(user => browserHistory.push(`/users/${user.id}`))
+        .then(user => browserHistory.push(`/user/${user.id}`))
         .catch(err => console.error('Problem signing up:', err));
 };
 
 export const retrieveLoggedInUser = () => dispatch => {
-    axios.get('/api/auth/me')
-        .then(res => dispatch(set(res.data)))
+    axios.get('/api/user/')
+        .then(res => dispatch(set(res.data._embeded.user)))
         .catch(err => console.error('Problem fetching current user', err));
 };
 
