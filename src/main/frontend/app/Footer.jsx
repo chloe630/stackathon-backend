@@ -7,9 +7,17 @@ export default class Footer extends React.Component {
     }
 
     render() {
+        const style = {
+            backgroundColor:'#F3F3F3',
+        paddingTop: '10px',
+        paddingBottom: '0px',
+        position: 'fixed',
+        bottom: '0',
+        width: '100%'
+        };
         return (
             <div>
-                <footer className="page-footer #90caf9 blue lighten-3" >
+                <footer className="page-footer #90caf9 blue lighten-3" style = { style } >
                     <div className="container">
                         <div className="row">
                             <div className="col l6 s12">
