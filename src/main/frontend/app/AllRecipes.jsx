@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import axios from 'axios';
 import { YUMMLY_APP_ID, YUMMLY_APP_KEY } from './main';
+import qs from 'qs';
 
 export default class AllRecipes extends React.Component {
 
@@ -13,12 +14,29 @@ export default class AllRecipes extends React.Component {
     }
 
     componentDidMount() {
+        axios.defaults.headers.post['Content-Type'] = 'application/json';
+
         axios.get(`http://api.yummly.com/v1/api/recipes?_app_id=${YUMMLY_APP_ID}&_app_key=${YUMMLY_APP_KEY}&q=vodka`)
             .then(response => {
                 response = response.data.matches;
-                response.filter(function(obj) { return obj.attributes.course.includes("Cocktails"); } )
+                response.filter(function(obj) { return obj.attributes.course.includes("Cocktails"); } );
                 this.setState({ recipes: response });
-            })
+
+                for (let i = 0; i < response.length; i++) {
+                    axios(
+                        {
+                            method: 'post',
+                            url: '/api/recipes',
+                            data: {
+                                id: response[i].id,
+                                name: response[i].recipeName,
+                                content: response[i].ingredients.join(" "),
+                                image: response[i].imageUrlsBySize[90]
+                            }
+                        }
+                    );
+                }
+            });
     }
 
     render() {

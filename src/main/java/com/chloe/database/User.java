@@ -6,16 +6,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id;
     private String name;
     private String email;
     private String password;
+    private ArrayList<String> favoriteDrinks;
 
     protected User() {}
 
@@ -23,14 +23,7 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.favoriteDrinks = new ArrayList<String>();
     }
 
     public String getName() {
@@ -55,5 +48,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public ArrayList<String> getFavoriteDrinks() {
+        return favoriteDrinks;
+    }
+
+    public void setFavoriteDrinks(ArrayList<String> favoriteDrinks) {
+        this.favoriteDrinks = favoriteDrinks;
     }
 }

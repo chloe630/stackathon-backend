@@ -14,9 +14,9 @@ export default class SingleRecipe extends React.Component {
 
     componentDidMount() {
         let recipe = this.props.params;
-        axios.get(`/api/recipes/${recipe.id}`)
+        axios.get(`/api/recipes/search/findRecipeById?id=${recipe.id}`)
             .then(recipe => {
-                recipe = recipe.data;
+                recipe = recipe.data
                 this.setState({ recipe });
             });
     }
@@ -35,6 +35,23 @@ export default class SingleRecipe extends React.Component {
         this.setState({
             recipe: newRecipe
         });
+    }
+
+    onClickFavorite(event) {
+        let thisRecipe = this.state.recipe;
+        let currentUser = this.state.user;
+        axios.defaults.headers.post['Content-Type'] = 'application/json';
+
+        axios(
+            {
+                method: 'post',
+                url: '/api/users',
+                data: {
+                    name: currentUser.name,
+                    favoriteDrinks: thisRecipe.id
+                }
+            }
+        );
     }
 
     render() {
@@ -61,7 +78,7 @@ export default class SingleRecipe extends React.Component {
                     <div className = "col m12">
                         <button onClick = { this.onClickPlus } className="btn waves-effect waves-light btn-block btn-primary">Like it!</button>
                         <button onClick = { this.onClickMinus } className="btn waves-effect waves-light btn-block btn-primary">Meh.. </button>
-                        <button className="btn waves-effect waves-light btn-block btn-primary">Save this recipe!</button>
+                        <button onClick = {this.onClickFavorite} className="btn waves-effect waves-light btn-block btn-primary">Save this recipe!</button>
                     </div>
                 </div>
             </div>

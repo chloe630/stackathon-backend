@@ -57,26 +57,17 @@ export default class Signup extends React.Component {
             password: event.target.password.value
             // favoriteDrinks:[]
         };
-        axios.get(`/api/user/search/findByEmail?email=${credentials.email}`)
-            .then(user => {
-                console.log('whaaa');
-                if (user.status == 404) {
-                    axios.post('/api/user/', credentials)
-                        .then(user => (
-                            <div>something</div>
-                        ))
+        axios(
+            {
+                method: 'post',
+                url: '/api/users',
+                data: {
+                    name: credentials.name,
+                    email: credentials.email,
+                    password: credentials.password
                 }
-                else {
-                    return (<div>noooooo</div>)
-                }
-            })
-            .catch(
-                (err) => axios.post('/api/user/', credentials)
-                              .then(user => (
-                                                <div>something</div>
-                                            )
-                                    )
-            );
+            }
+        ).then(response => this.state.user = credentials.name);
     };
 }
 

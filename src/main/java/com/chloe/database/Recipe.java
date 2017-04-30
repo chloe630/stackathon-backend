@@ -10,8 +10,7 @@ import java.io.Serializable;
 public class Recipe implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
     private String name;
     private String content;
     private String image;
@@ -19,24 +18,26 @@ public class Recipe implements Serializable{
 
     protected Recipe() {};
 
-    public Recipe(String name, String content, String image) {
+    public Recipe(String id, String name, String content, String image) {
+        this.id = id;
         this.name = name;
         this.content = content;
         this.image = image;
     }
 
-    public Recipe(String name, String content, String image, int rating) {
+    public Recipe(String id, String name, String content, String image, int rating) {
+        this.id = id;
         this.name = name;
         this.content = content;
         this.image = image;
         this.rating = rating;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
