@@ -26,12 +26,12 @@ public class DatabaseLoader implements ApplicationRunner {
 //        Recipe bloodyMary = new Recipe("Bloody Mary", "1. Blood 2. Mary 3. Yum..?","http://placegoat.com/200/200", 25);
 //        Recipe cosmopolitan = new Recipe("Cosmopolitan", "1. get Cosmopolitan magazine 2. grind it 3. mix it with sake", "http://placegoat.com/200/200", 57);
 
-        ArrayList<Recipe> mochasRecipes = new ArrayList<>();
+//        ArrayList<Recipe> mochasRecipes = new ArrayList<>();
 //        mochasRecipes.add(mojito);
 //        mochasRecipes.add(sake);
         this.userRepository.save(new User("mocha chung", "mocha@meow.com", "1234"));
 
-        ArrayList<Recipe> chloesRecipes = new ArrayList<>();
+//        ArrayList<Recipe> chloesRecipes = new ArrayList<>();
 //        mochasRecipes.add(martini);
 //        mochasRecipes.add(mojito);
         this.userRepository.save(new User("chloe choi", "chloe@meow.com", "1234"));
