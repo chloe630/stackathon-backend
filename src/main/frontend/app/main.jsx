@@ -14,13 +14,6 @@ export const YUMMLY_APP_KEY = "6fe0f5fefb8be21234e16dce6627e9ec";
 export const YUMMLY_APP_ID = "ba1e5d92";
 import Routes from './Routes';
 
-
-export const initialState = {
-    users : [],
-    currentUser: {},
-    ingredients: []
-};
-
 // const fetchAllUsers = () => (
 //     axios.get('/api/user/')
 //         .then(users => {

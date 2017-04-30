@@ -1,8 +1,8 @@
-// import axios from 'axios';
+import axios from 'axios';
 //
 // /* -----------------    ACTIONS     ------------------ */
 //
-// const INITIALIZE    = 'INITIALIZE_RECIPES';
+const INITIALIZE    = 'INITIALIZE_INGREDIENTS';
 // const CREATE        = 'CREATE_RECIPE';
 // export const REMOVE = 'REMOVE_RECIPE';
 // const UPDATE        = 'UPDATE_RECIPE';
@@ -10,33 +10,44 @@
 //
 // /* ------------   ACTION CREATORS     ------------------ */
 //
-// const init   = recipes => ({ type: INITIALIZE, recipes });
+const init   = ingredients => ({ type: INITIALIZE, ingredients });
 // export const create = recipes => ({ type: CREATE, recipes });
 // const remove = recipes    => ({ type: REMOVE, recipes });
 // const update = recipes  => ({ type: UPDATE, recipes });
 //
 //
-// export default function reducer (recipes = [], action) {
-//     switch (action.type) {
-//
-//         case INITIALIZE:
-//             return action.recipes;
-//
-//         case CREATE:
-//             return [action.recipe, ...recipes];
-//
-//         case REMOVE:
-//             return recipes.filter(recipe => recipe.id !== action.id);
-//
-//         case UPDATE:
-//             return recipes.map(recipe => (
-//                 action.recipe.id === recipe.id ? action.recipe : recipe
-//             ));
-//
-//         default:
-//             return recipes;
-//     }
-// }
+
+const initial = {
+    ingredients : []
+}
+
+export default function reducer (state = inital, action) {
+    const newState = Object.assign({}, initial);
+    switch (action.type) {
+
+        case INITIALIZE:
+            newState.ingredients = action.ingredients;
+            break;
+        //
+        // case CREATE:
+        //     return [action.recipe, ...recipes];
+        //
+        // case REMOVE:
+        //     return recipes.filter(recipe => recipe.id !== action.id);
+        //
+        // case UPDATE:
+        //     return recipes.map(recipe => (
+        //         action.recipe.id === recipe.id ? action.recipe : recipe
+        //     ));
+
+        default:
+            return state;
+    }
+    return newState;
+}
+
+
+
 //
 //
 //

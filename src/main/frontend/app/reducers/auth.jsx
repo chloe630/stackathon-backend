@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { create as createUser } from './user';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 
 /* ------------------    ACTIONS    --------------------- */
 
@@ -72,6 +72,7 @@ export const loginAndGoToUser = credentials => dispatch => {
         .then(user => {
             console.log('wht is this', user);
             browserHistory.push(`/user/${user.name}`)
+            // browserHistory.push(`/user/${user.data.name}`)
         })
         .catch(err => console.error('Problem logging in:', err));
 };
@@ -93,7 +94,7 @@ export const signup = credentials => dispatch => {
 
 export const signupAndGoToUser = credentials => dispatch => {
     dispatch(signup(credentials))
-        .then(user => browserHistory.push(`/user/${user.id}`))
+        // .then(user => browserHistory.push(`/user/${user.id}`))
         .catch(err => console.error('Problem signing up:', err));
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import Root from './Root';
 import Home from './Home';
 import Login from './Login';
@@ -15,9 +15,9 @@ import { retrieveLoggedInUser } from './reducers/auth';
 
 
 const Routes = ({ fetchInitialData, onStoryEnter }) => (
-    <Router history={ browserHistory }>
+    <Router history={ hashHistory }>
         <Route path="/" component={ Root } >
-            <Route path="/search" component = { Input } />
+            <Route path="/search" component = { Input }/>
             <Route path="/recipes" component={ AllRecipes }/>
             <Route path="/recipes/:id" component={ SingleRecipe } />
             <Route path="/login" component={ Login } />

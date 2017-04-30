@@ -12,24 +12,23 @@ export default class Input extends React.Component {
         this.onChangeIngredient = this.onChangeIngredient.bind(this);
     }
 
-    componentDidMount () {
-        console.log(this.state.ingredients);
-    }
+    // componentDidMount () {
+    //     this.setState({ ingredients: this.props.ingredients });
+    // }
 
     onChangeIngredient(event) {
         let currentN = (this.state.ingredients.length > 0 )? this.state.ingredients.length : 0;
         let val = event.target.value;
         let updatedArr = this.state.ingredients.slice();
-        updatedArr[currentN] = val;
-        this.setState({ingredients: updatedArr});
+        updatedArr[currentN] = val.toLowerCase();
+        this.setState({ingredient: updatedArr});
     }
 
     onChangeAdd(event) {
         console.log(event.target.ingredients);
-        let val = event.target.ingredients.value;
-        console.log("add: ", val);
+        console.log("add: ", this.state.ingredient[0]);
         let updatedArr = this.state.ingredients.slice();
-        updatedArr.push(val);
+        updatedArr.push(this.state.ingredient.shift());
         this.setState({ ingredients: updatedArr });
     }
 
@@ -44,33 +43,30 @@ export default class Input extends React.Component {
     }
 
     render() {
-        const ingredients = this.state.ingredients;
+        const ingredients = this.state;
+        // console.log("whats passed as props?", this.props);
         console.log("this.state.ingredients", ingredients);
         return (
             <div >
                 <div className="row">
-                    <form className = "col s12" onSubmit = { this.onChangeAdd } >
+                    <form className = "col s12" >
                         <div className = "row">
                             <div className = "input-field col s6">
                                 <i className="material-icons prefix">mode_edit</i>
-                                <button type = "submit" className="left btn-floating waves-effect waves-light red"><i className="material-icons">add</i></button>
+                                <button onClick = { this.onChangeAdd } type = "submit" className="left btn-floating waves-effect waves-light red"><i className="material-icons">add</i></button>
                                 <input onChange = {this.onChangeIngredient } id = "icon_prefix" name = "ingredients" type="text" className="validate form-control" required/>
                                 <label> Ingredients! </label>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div className = "row col m6">
-                    <form >
                         <div className = "offset-s6 col s6">
                             {
-                                (ingredients.length > 0) && (
+                                ingredients.length > 0 && (
                                     <table className="collection with-header highlight">
                                         <thead className="collection-header"><h4>Your Ingredients!</h4></thead>
                                         {
                                             ingredients.map(ingredient => (
                                                 <tr className="collection-item"><th>{ ingredient }
-                                                    <button className="btn-floating btn-large waves-effect waves-light red">
+                                                    <button onClick = {this.onChangeRemove} className="btn-floating btn-large waves-effect waves-light red">
                                                         <i className="material-icons">remove</i>
                                                     </button></th></tr>
 
