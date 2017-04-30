@@ -18,6 +18,9 @@ import Login from './Login';
 import SignUp from './SignUp';
 import SingleUser from './SingleUser';
 
+export const YUMMLY_APP_KEY = "6fe0f5fefb8be21234e16dce6627e9ec";
+export const YUMMLY_APP_ID = "ba1e5d92";
+
 export const initialState = {
     users : [],
     currentUser: {}

@@ -61,17 +61,23 @@ export default class Signup extends React.Component {
         axios.get(`/api/user/search/findByEmail?email=${credentials.email}`)
             .then(user => {
                 console.log('whaaa');
-                if (Number(user.status) === 404) {
+                if (user.status == 404) {
                     axios.post('/api/user/', credentials)
                         .then(user => (
                             <div>something</div>
                         ))
-
                 }
                 else {
                     return (<div>noooooo</div>)
                 }
-            });
+            })
+            .catch(
+                (err) => axios.post('/api/user/', credentials)
+                              .then(user => (
+                                                <div>something</div>
+                                            )
+                                    )
+            );
     };
 }
 
