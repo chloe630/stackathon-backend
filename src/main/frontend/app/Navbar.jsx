@@ -44,12 +44,6 @@ class Navbar extends React.Component {
         );
     }
 
-    // renderSingleUser() {
-    //
-    //     return (
-    //         <Link to = "/user/1" data-activates="slide-out" className="button-collapse"><i className="material-icons">menu</i></Link>
-    //     );
-    // }
     render() {
         console.log("currentUser",this.props.currentUser);
         console.log("props: ", this.props);
@@ -73,12 +67,6 @@ class Navbar extends React.Component {
 }
 
 const mapState = ({currentUser}) => ({currentUser});
-// // equivalent to:
-// const mapState = state => {
-//   return {
-//     currentUser: state.currentUser
-//   };
-// };
 
 const mapDispatch = dispatch => ({
     logout: () => {

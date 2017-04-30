@@ -6,7 +6,17 @@ import axios from 'axios';
 class Login extends React.Component {
     constructor(props) {
         super(props);
-        this.onLoginSubmit = this.onLoginSubmit.bind(this)
+        this.state = {
+            user : ""
+        };
+        this.onLoginSubmit = this.onLoginSubmit.bind(this);
+        this.setStateOnLogin = this.setStateOnLogin.bind(this);
+    }
+
+    setStateOnLogin(event){
+
+        this.onLoginSubmit(event);
+        this.setState({ user : document.cookie.split("user=")[1] });
     }
 
     onLoginSubmit(event) {
@@ -24,7 +34,7 @@ class Login extends React.Component {
         return (
             <div className="signin-container">
                 <div className="buffer local">
-                    <form onSubmit={ this.onLoginSubmit }>
+                    <form onSubmit={ this.setStateOnLogin }>
                         <div className="form-group">
                             <label>email</label>
                             <input

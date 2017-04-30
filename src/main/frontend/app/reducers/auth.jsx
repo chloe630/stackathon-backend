@@ -25,11 +25,14 @@ export default function reducer (currentUser = null, action) {
         case SET:
             // newState.currentUser = action.user;
             // newState.loggedIn = action.user.id;
+            document.cookie = `user=${action.user.name}`;
             return action.user;
 
         case REMOVE:
             // newState.currentUser = null;
             // newState.loggedIn = null;
+            console.log("case remove");
+            document.cookie = "";
             return null;
 
         default:
@@ -71,7 +74,7 @@ export const loginAndGoToUser = credentials => dispatch => {
     dispatch(login(credentials))
         .then(user => {
             console.log('wht is this', user);
-            browserHistory.push(`/user/${user.name}`)
+            //browserHistory.push(`/user/${user.name}`)
             // browserHistory.push(`/user/${user.data.name}`)
         })
         .catch(err => console.error('Problem logging in:', err));
@@ -107,6 +110,4 @@ export const retrieveLoggedInUser = () => dispatch => {
 // optimistic
 export const logout = () => dispatch => {
     dispatch(remove());
-    axios.delete('/api/auth/me')
-        .catch(err => console.error('logout unsuccessful', err));
 };
