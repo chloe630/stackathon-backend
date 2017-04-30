@@ -9,7 +9,6 @@ export default class Signup extends React.Component {
     }
 
     render() {
-        const { message } = this.props;
         return (
             <div className="signin-container">
                 <span>Sign up</span>
