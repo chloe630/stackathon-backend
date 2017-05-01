@@ -10,6 +10,7 @@ export default class SingleRecipe extends React.Component {
         });
         this.onClickPlus = this.onClickPlus.bind(this);
         this.onClickMinus = this.onClickMinus.bind(this);
+        this.onClickFavorite = this.onClickFavorite.bind(this);
     }
 
     componentDidMount() {
@@ -39,19 +40,29 @@ export default class SingleRecipe extends React.Component {
 
     onClickFavorite(event) {
         let thisRecipe = this.state.recipe;
-        let currentUser = this.state.user;
+        let currentUser = localStorage.getItem("userEmail");
+        console.log("recipeUser?: ", currentUser);
+        console.log("recipeId?: ",thisRecipe);
         axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-        axios(
-            {
-                method: 'post',
-                url: '/api/users',
-                data: {
-                    name: currentUser.name,
-                    favoriteDrinks: thisRecipe.id
-                }
-            }
-        );
+        axios.get(`/api/user/search/findByEmail?email=${currentUser}`)
+            .then(user => user.data)
+            .then (user => {
+                console.log("got here, axios get req", user);
+                let fav = user.favoriteDrinks.slice();
+                fav.push(thisRecipe);
+                axios(
+                    {
+                        method: 'post',
+                        url: '/api/user',
+                        data: {
+                            name: user.name,
+                            favoriteDrinks: fav
+                        }
+                    }
+                );
+
+            })
     }
 
     render() {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { loginAndGoToUser } from './reducers/auth';
 import axios from 'axios';
 
@@ -7,7 +8,8 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user : ""
+            user : {},
+            loggedin: false
         };
         this.onLoginSubmit = this.onLoginSubmit.bind(this);
         this.setStateOnLogin = this.setStateOnLogin.bind(this);
@@ -16,7 +18,11 @@ class Login extends React.Component {
     setStateOnLogin(event){
 
         this.onLoginSubmit(event);
-        this.setState({ user : document.cookie.split("user=")[1] });
+        let currentU = {
+            name: localStorage.getItem("userName"),
+            email: localStorage.getItem("userEmail")
+        };
+        this.setState({ user : currentU });
     }
 
     onLoginSubmit(event) {
@@ -26,7 +32,7 @@ class Login extends React.Component {
             password: event.target.password.value
         };
         this.props.login(credentials);
-        this.setState({ loggedIn: true });
+        this.setState({ loggedin : true });
 
     }
 
@@ -54,7 +60,13 @@ class Login extends React.Component {
                                 required
                             />
                         </div>
-                        <button type="submit" className="btn btn-block btn-primary">Log in!</button>
+                        {
+                            (this.state.loggedin)?
+                                (<button type = "submit" className = "btn btn-large btn-block btn-primary"><Link to = {'/'} > You are logged in! Let's go find your drinks!</Link></button>)
+                            :
+                                ( <button type="submit" className="btn btn-large btn-block btn-primary">Log in!</button>)
+
+                        }
                     </form>
                 </div>
             </div>
@@ -67,13 +79,5 @@ class Login extends React.Component {
 const mapState = () => ({ message: 'Log in' });
 
 const mapDispatch = { login: loginAndGoToUser };
-// // equivalent to:
-// const mapDispatch = (dispatch) => {
-//   return {
-//     login: function (credentials) {
-//       dispatch(loginAndGoToUser(credentials));
-//     }
-//   };
-// };
 
 export default connect(mapState, mapDispatch)(Login);

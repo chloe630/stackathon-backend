@@ -13,7 +13,7 @@ const set     = user => ({ type: SET, user });
 const remove  = () => ({ type: REMOVE });
 
 /* ------------------    REDUCER    --------------------- */
-
+//
 // const initialState = {
 //     currentUser : null,
 //     loggedIn: null
@@ -25,14 +25,19 @@ export default function reducer (currentUser = null, action) {
         case SET:
             // newState.currentUser = action.user;
             // newState.loggedIn = action.user.id;
-            document.cookie = `user=${action.user.name}`;
+            localStorage.setItem("userName", action.user.name);
+            localStorage.setItem("userEmail", action.user.email);
+            currentUser = action.user;
             return action.user;
 
         case REMOVE:
             // newState.currentUser = null;
             // newState.loggedIn = null;
             console.log("case remove");
-            document.cookie = "";
+            // let currentUser = localStorage.getItem("user");
+            localStorage.setItem("userName", "");
+            localStorage.setItem("userEmail", "");
+
             return null;
 
         default:

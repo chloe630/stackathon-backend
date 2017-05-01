@@ -6,6 +6,12 @@ import { logout as logOutUser } from './reducers/auth';
 class Navbar extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            user: {
+                name: localStorage.getItem("userName"),
+                email: localStorage.getItem("userEmail")
+            }
+        };
         this.renderLoginSignup = this.renderLoginSignup.bind(this);
         this.renderLogout = this.renderLogout.bind(this);
     }
@@ -25,13 +31,13 @@ class Navbar extends React.Component {
 
 
     renderLogout() {
-        const name = this.props.currentUser.name || this.props.currentUser.email;
+        const name = localStorage.getItem("userName");
         return (
             <div>
                 <ul className="nav navbar-nav navbar-right">
                     <li>
-                        <button className="navbar-btn btn btn-default"> {name}'s page
-                            <Link to = {`/user/${name}`} data-activates="slide-out" className="button-collapse"><i className="material-icons">menu</i></Link>
+                        <button className="navbar-btn btn btn-default">
+                            <Link to = {`/user/${name}`}>{name}'s page</Link>
                         </button>
                         <button
                             className="navbar-btn btn btn-default"
@@ -45,8 +51,8 @@ class Navbar extends React.Component {
     }
 
     render() {
-        console.log("currentUser",this.props.currentUser);
-        console.log("props: ", this.props);
+        console.log("currentUser",localStorage.getItem("userName"));
+        console.log("props: ", this.props.currentUser);
         return (
             <nav>
                 <div className="nav-wrapper #90caf9 blue lighten-3">
@@ -56,7 +62,8 @@ class Navbar extends React.Component {
                         <li><Link to="/search">Find my cocktail!!</Link></li>
                         <li>
                             {
-                                this.props.currentUser ? this.renderLogout() : this.renderLoginSignup()
+                                // localStorage.getItem("userName") !== "" ? this.renderLogout() : this.renderLoginSignup()
+                                (this.state.user.name !== "")||(localStorage.getItem("userName") !== "") ? this.renderLogout() : this.renderLoginSignup()
                             }
                         </li>
                     </ul>
