@@ -1,18 +1,13 @@
 import React from 'react';
 
 const Home = function(props) {
-    $('.carousel.carousel-slider').carousel({fullWidth: true});
     return (
-    <div className="container">
-        <h1 className = "homePageTitle">Hellooo</h1>
-        <h1>Welcome to Drinker's Heaven!</h1>
-        <div className="carousel carousel-slider">
-        <a className="carousel-item" href="#one!"><img src="http://placehold.it/350x150" /></a>
-        <a className="carousel-item" href="#two!"><img src="http://placehold.it/350x150" /></a>
-        <a className="carousel-item" href="#three!"><img src="http://placehold.it/350x150" /></a>
-        <a className="carousel-item" href="#four!"><img src="http://placehold.it/350x150" /></a>
+        <div className="container">
+            <h1 className = "#303f9f indigo-text text-darken-2 homePageTitle">Welcome to Drinker's Heaven!</h1>
+            <div>
+                <img src = "http://cdn.catsfotos.com/i/77/87/b5/8e/d1/cat-with-martini-and-bow-tie-art-print-of-my-original-watercolor-illustration-for-cat-and-cocktail_original.jpg"/>
+            </div>
         </div>
-    </div>
     );
 
 };
