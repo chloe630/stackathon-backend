@@ -132,7 +132,7 @@ export default class SingleRecipe extends React.Component {
                                 <h4>{ recipe.name }</h4>
                                 <h5>Ingredients</h5>
                                 { recipeContent.split(" ").map(ing => (
-                                    <p>{ ing.charAt(0).toUpperCase() + ing.slice(1) }</p>
+                                    <span>{ ing.charAt(0).toUpperCase() + ing.slice(1) }, </span>
                                 )) }
                                 <p>Likes: { recipe.rating }</p>
                             </div>
