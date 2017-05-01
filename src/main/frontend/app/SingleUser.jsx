@@ -41,9 +41,8 @@ export default class SingleUser extends React.Component{
 
                                 <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a>
                             </li>
-                            <li className="collection-item avatar">
-                                <i className="material-icons circle">star</i>
-                                <span className="title">My favorite drinks</span>
+                            <li>
+                                <h5 className="title">My favorite drinks</h5>
                             </li>
 
                             {
@@ -52,17 +51,14 @@ export default class SingleUser extends React.Component{
                                         <i className="material-icons circle">star</i>
                                         <span className="title">{recipe.name}</span>
                                         {
-                                            recipe.content.split(" ").map(ingredient => (
+                                            recipe.content.split(" ").map(ing => (
                                                 <div>
-                                                    <p>{ingredient}</p>
+                                                    <p>{ ing.charAt(0).toUpperCase() + ing.slice(1) }</p>
                                                 </div>
                                                 )
                                             )
                                         }
-
-                                        {/*<p>{recipe.content}</p>*/}
-                                        <p>{recipe.image}</p>
-                                        <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a>
+                                        <a href="#!" className="secondary-content"><img src={recipe.image} className="material-icons"/></a>
                                     </li>
                                 ))
                             }
