@@ -23,17 +23,46 @@ export default class SingleRecipe extends React.Component {
             });
     }
     onClickPlus(event) {
+        let recipe = this.props.params;
         let newRecipe = this.state.recipe;
         newRecipe.rating = newRecipe.rating + 1;
+        console.log("newRecipe.id: ", newRecipe);
+        axios(
+            {
+                method: 'post',
+                url: '/api/recipes',
+                data: {
+                    id: String(recipe.id),
+                    name: String(newRecipe.name),
+                    content: String(newRecipe.content),
+                    image: String(newRecipe.image),
+                    rating: Number(newRecipe.rating)
+                }
+            }
+        );
         this.setState({
             recipe: newRecipe
         });
-        console.log(this.state.recipe);
+        // console.log(this.state.recipe);
     }
 
     onClickMinus(event) {
+        let recipe = this.props.params;
         let newRecipe = this.state.recipe;
         newRecipe.rating = newRecipe.rating - 1;
+        axios(
+            {
+                method: 'post',
+                url: '/api/recipes',
+                data: {
+                    id: recipe.id,
+                    name: newRecipe.name,
+                    content: newRecipe.content,
+                    image: newRecipe.image,
+                    rating: newRecipe.rating
+                }
+            }
+        );
         this.setState({
             recipe: newRecipe
         });
@@ -90,31 +119,33 @@ export default class SingleRecipe extends React.Component {
 
     render() {
         const recipe = this.state.recipe;
-        console.log(recipe);
+        let recipeContent = String(recipe.content);
+        // console.log(recipeContent.split(" "));
         return (
             <div>
                 <div className = "row">
                     <div className = "col m12">
-                        <div className = "col m6">
-                            <div className="section">
-                                <h5>{ recipe.name }</h5>
-                                <p>{ recipe.content }</p>
-                                <p>{ recipe.rating }</p>
+                        <div className = "col s12 valign-wrapper">
+                            <img className="left responsive-img" src = { recipe.image } />
+
+                            <div className="section container">
+                                <h4>{ recipe.name }</h4>
+                                <h5>Ingredients</h5>
+                                { recipeContent.split(" ").map(ing => (
+                                    <p>{ ing.charAt(0).toUpperCase() + ing.slice(1) }</p>
+                                )) }
+                                <p>Likes: { recipe.rating }</p>
                             </div>
-                        </div>
-                        <div className = "col m6">
-                            <div className = "container">
-                                <img src = { recipe.image } />
-                            </div>
+
                         </div>
                     </div>
                     <hr/>
                     <div className = "col m12">
-                        <button onClick = { this.onClickPlus } className="btn waves-effect waves-light btn-block btn-primary">Like it!</button>
-                        <button onClick = { this.onClickMinus } className="btn waves-effect waves-light btn-block btn-primary">Meh.. </button>
-                        <button
+                        <a onClick = { this.onClickPlus } className=" waves-effect waves-light btn"><i className="material-icons left">thumb_up</i>Like it!</a>
+                        <a onClick = { this.onClickMinus } className=" waves-effect waves-light btn"><i className="material-icons left">call_received</i>Meh.. </a>
+                        <a
                             disabled = {this.state.alreadyInFavs}
-                            onClick = {this.onClickFavorite} className="btn waves-effect waves-light btn-block btn-primary">Save this recipe!</button>
+                            onClick = {this.onClickFavorite} className=" waves-effect waves-light btn"><i className="material-icons left">star</i>Save this recipe!</a>
 
                     </div>
                 </div>

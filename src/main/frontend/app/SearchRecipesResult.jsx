@@ -47,19 +47,20 @@ export default class SearchRecipesResult extends React.Component {
                         this.state.recipes && this.state.recipes.map(recipe => (
 
                             <div className="col s12 m7" key = {recipe.id}>
-                                <h2 className="header #1976d2 blue-text text-darken-2">{ recipe.recipeName }</h2>
                                 <div className="card horizontal">
                                     <div className="card-image">
                                         <img src={ recipe.imageUrlsBySize[90] } />
                                     </div>
                                     <div className="card-stacked">
                                         <div className="card-content truncate">
+                                            <span className="card-title #1976d2 blue-text text-darken-2">{ recipe.recipeName }</span>
+
                                             { recipe.ingredients && recipe.ingredients.map(ing => (
-                                                <p>{ ing }</p>
+                                                <p>{ ing.charAt(0).toUpperCase() + ing.slice(1) }</p>
                                             )) }
                                         </div>
                                         <div className="card-action">
-                                            <Link to = { `/recipes/${ recipe.id }` } className = "blue-text text-darken-2"> How to make it? </Link>
+                                            <Link to = { `/recipes/${ recipe.id }` } className = "blue-text text-darken-2"> View Details </Link>
                                         </div>
                                     </div>
                                 </div>

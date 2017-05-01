@@ -8,4 +8,8 @@ main {
     flex: 1 0 auto;
 }
 
-
+.home-container {
+    background: blue;
+    background-color: blue;
+    text-size: 90px;
+}

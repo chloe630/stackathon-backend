@@ -5,7 +5,7 @@ const Home = function(props) {
     return (
     <div className="container">
         <h1 className = "homePageTitle">Hellooo</h1>
-        <h1>welcome to drinker's heaven!</h1>
+        <h1>Welcome to Drinker's Heaven!</h1>
         <div className="carousel carousel-slider">
         <a className="carousel-item" href="#one!"><img src="http://placehold.it/350x150" /></a>
         <a className="carousel-item" href="#two!"><img src="http://placehold.it/350x150" /></a>

@@ -53,10 +53,15 @@ class Navbar extends React.Component {
     render() {
         console.log("currentUser",localStorage.getItem("userName"));
         console.log("props: ", this.props.currentUser);
+        var titleStyle = {
+            marginLeft: 10,
+            marginColor: '#90caf9'
+        };
+
         return (
             <nav>
-                <div className="nav-wrapper #90caf9 blue lighten-3">
-                    <Link to = "/" className="brand-logo">Drinker's heaven</Link>
+                <div className="nav-wrapper #90caf9 blue lighten-3" >
+                    <Link to = "/" className="brand-logo" style={titleStyle}>Drinker's Heaven</Link>
                     <ul id="nav-mobile" className="right hide-on-med-and-down">
                         <li><Link to="/topRecipes">Top 10 Drinks</Link></li>
                         <li><Link to="/search">Find my cocktail!!</Link></li>
