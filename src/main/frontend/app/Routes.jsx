@@ -15,11 +15,6 @@ import Input from './Input';
 // import { fetchStories, fetchStory } from './redux/stories';
 import { retrieveLoggedInUser } from './reducers/auth';
 
-// const fetchUserData = () => {
-//     store.dispatch(retrieveLoggedInUser());
-// }
-
-
 const Routes = ({ fetchInitialData, onStoryEnter }) => (
     <Router history={ hashHistory }>
         <Route path="/" component={ Root } >
@@ -29,7 +24,7 @@ const Routes = ({ fetchInitialData, onStoryEnter }) => (
             <Route path="/recipes/:id" component={ SingleRecipe } />
             <Route path="/login" component={ Login } />
             <Route path="/signup" component={ SignUp } />
-            <Route path = "/user/:name" component={ SingleUser } />
+            <Route path = "/user/:name" component={ SingleUser }/>
             <IndexRoute component={ Home } />
         </Route>
     </Router>

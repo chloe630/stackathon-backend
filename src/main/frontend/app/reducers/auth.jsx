@@ -13,11 +13,7 @@ const set     = user => ({ type: SET, user });
 const remove  = () => ({ type: REMOVE });
 
 /* ------------------    REDUCER    --------------------- */
-//
-// const initialState = {
-//     currentUser : null,
-//     loggedIn: null
-// }
+
 export default function reducer (currentUser = null, action) {
     // const newState = Object.assign({}, initialState);
     switch (action.type) {
@@ -45,26 +41,9 @@ export default function reducer (currentUser = null, action) {
     }
 }
 
-/* ------------       DISPATCHERS     ------------------ */
-
-/**
- * Dispatchers are just async action creators.
- * Action creators are supposed to emit actions.
- * Actions will be reduced to produce a new state.
- *
- * However, thunks can also do side effects, such as route to another location.
- * This could get fairly elaborate, by taking arguments as to where to go, or
- * whether to change routes at all. But we illustrate a simple case with some
- * composed dispatchers which also route to a specific page.
- *
- * If we wanted the calling code (component) to handle the result instead, we
- * would use the "simple" dispatcher and chain off the returned promise.
- * Components should probably know nothing about side effects, however.
- */
 
 const resToData = res => res.data;
 
-// a "simple" dispatcher which uses API, changes state, and returns a promise.
 export const login = credentials => dispatch => {
     return axios.get(`/api/user/search/findByEmail?email=${credentials.email}`, credentials)
         .then(user => {
@@ -74,7 +53,6 @@ export const login = credentials => dispatch => {
         });
 };
 
-// a "composed" dispatcher which uses the "simple" one, then routes to a page.
 export const loginAndGoToUser = credentials => dispatch => {
     dispatch(login(credentials))
         .then(user => {
@@ -95,8 +73,8 @@ export const signup = credentials => dispatch => {
         })
         .then(resToData)
         .then(user => {
-            dispatch(createUser(user)); // so new user appears in our master list
-            dispatch(set(user)); // set current user
+            dispatch(createUser(user));
+            dispatch(set(user));
             return user;
         });
 };
@@ -113,7 +91,6 @@ export const retrieveLoggedInUser = () => dispatch => {
         .catch(err => console.error('Problem fetching current user', err));
 };
 
-// optimistic
 export const logout = () => dispatch => {
     dispatch(remove());
 };

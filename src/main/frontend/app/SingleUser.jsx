@@ -12,35 +12,58 @@ export default class SingleUser extends React.Component{
                 email: localStorage.getItem("userEmail")
             }
         });
-        $(document).ready(function(){
-            $('.collapsible').collapsible();
-        });
     }
 
+    componentDidMount (){
+        let cu = localStorage.getItem("userName");
+        axios.get(`/api/user/search/findByName?name=${cu}`)
+            .then(user => user.data)
+            .then (user => {
+                // console.log("got here, axios get req", user);
+                let fav = user.favoriteDrinks.slice();
+                this.setState({favorite: fav});
+            });
+    }
     render(){
         console.log("im a single user!");
         return (
+            <div>
+                {
+                    (localStorage.getItem("userName") !== "") &&
+                    (
+                        <ul className="collection">
+                            <li className="collection-item avatar">
+                                <img src="images/yuna.jpg" alt="" className="circle"/>
+                                <span className="title">{this.state.user.name}</span>
+                                <p>{this.state.user.name} </p>
+                                <p>{this.state.user.email}</p>
 
-            (localStorage.getItem("uerName") !== "") && (
+                                <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a>
+                            </li>
+                            <li className="collection-item avatar">
+                                <i className="material-icons circle">star</i>
+                                <span className="title">My favorite drinks</span>
+                                {
+                                    this.state.favorite&&this.state.favorite.map(recipe => (
+                                        <div>
+                                            <p>{recipe.name}</p>
+                                            <p>{recipe.content}</p>
+                                            <p>{recipe.image}</p>
+                                            <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a>
+                                        </div>
+                                    ))
+                                }
+                            </li>
 
-                <ul className="collapsible" data-collapsible="accordion">
-                    <li>
-                        <div className="collapsible-header"><i className="material-icons">filter_drama</i>First</div>
-                        <div className="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                    </li>
-                    <li>
-                        <div className="collapsible-header"><i className="material-icons">place</i>Second</div>
-                        <div className="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                    </li>
-                    <li>
-                        <div className="collapsible-header"><i className="material-icons">whatshot</i>Third</div>
-                        <div className="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                    </li>
-                </ul>
-            )
-
+                        </ul>
+                    )
+                }
+            </div>
 
         );
     }
+
 }
+
+
 

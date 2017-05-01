@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
+
 export default class SingleRecipe extends React.Component {
 
     constructor(props) {
@@ -17,7 +18,7 @@ export default class SingleRecipe extends React.Component {
         let recipe = this.props.params;
         axios.get(`/api/recipes/search/findRecipeById?id=${recipe.id}`)
             .then(recipe => {
-                recipe = recipe.data
+                recipe = recipe.data;
                 this.setState({ recipe });
             });
     }
@@ -106,12 +107,8 @@ export default class SingleRecipe extends React.Component {
                         <button onClick = { this.onClickPlus } className="btn waves-effect waves-light btn-block btn-primary">Like it!</button>
                         <button onClick = { this.onClickMinus } className="btn waves-effect waves-light btn-block btn-primary">Meh.. </button>
                         <button
-                            disabled = {
-                                
-                            }
+                            disabled = {this.state.alreadyInFavs}
                             onClick = {this.onClickFavorite} className="btn waves-effect waves-light btn-block btn-primary">Save this recipe!</button>
-
-
 
                     </div>
                 </div>

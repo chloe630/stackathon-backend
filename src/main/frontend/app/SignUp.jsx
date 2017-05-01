@@ -73,14 +73,6 @@ class Signup extends React.Component {
         ).then(response => this.state.user = credentials.name);
     };
 
-    // onSignupSubmit(event) {
-    //     event.preventDefault();
-    //     const credentials = {
-    //         email: event.target.email.value,
-    //         password: event.target.password.value
-    //     };
-    //     this.props.signup(credentials);
-    // }
 }
 
 
@@ -88,13 +80,5 @@ class Signup extends React.Component {
 const mapState = () => ({ message: 'Sign up' });
 
 const mapDispatch = { signup: signupAndGoToUser };
-// // equivalent to:
-// const mapDispatch = (dispatch) => {
-//   return {
-//     signup: function (credentials) {
-//       dispatch(signupAndGoToUser(credentials));
-//     }
-//   };
-// };
 
 export default connect(mapState, mapDispatch)(Signup);
