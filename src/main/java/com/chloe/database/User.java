@@ -1,5 +1,6 @@
 package com.chloe.database;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Entity;
 import javax.persistence.GenerationType;
@@ -9,20 +10,30 @@ import java.util.ArrayList;
 @Entity
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Id
+    private String id;
     private String name;
     private String email;
     private String password;
-    private ArrayList<String> favoriteDrinks;
+    @Column(length = 10000)
+    private ArrayList<Object> favoriteDrinks;
 
     protected User() {}
 
-    public User(String name, String email, String password) {
+    public User(String id, String name, String email, String password) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.favoriteDrinks = new ArrayList<String>();
+        this.favoriteDrinks = new ArrayList<Object>();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -49,11 +60,11 @@ public class User {
         this.password = password;
     }
 
-    public ArrayList<String> getFavoriteDrinks() {
+    public ArrayList<Object> getFavoriteDrinks() {
         return favoriteDrinks;
     }
 
-    public void setFavoriteDrinks(ArrayList<String> favoriteDrinks) {
+    public void setFavoriteDrinks(ArrayList<Object> favoriteDrinks) {
         this.favoriteDrinks = favoriteDrinks;
     }
 }

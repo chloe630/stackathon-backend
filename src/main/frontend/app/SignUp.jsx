@@ -64,6 +64,7 @@ class Signup extends React.Component {
                 method: 'post',
                 url: '/api/users',
                 data: {
+                    id: credentials.name,
                     name: credentials.name,
                     email: credentials.email,
                     password: credentials.password

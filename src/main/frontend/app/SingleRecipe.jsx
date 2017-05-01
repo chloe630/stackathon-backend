@@ -40,28 +40,44 @@ export default class SingleRecipe extends React.Component {
 
     onClickFavorite(event) {
         let thisRecipe = this.state.recipe;
-        let currentUser = localStorage.getItem("userEmail");
+        let currentUser = localStorage.getItem("userName");
         console.log("recipeUser?: ", currentUser);
         console.log("recipeId?: ",thisRecipe);
         axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-        axios.get(`/api/user/search/findByEmail?email=${currentUser}`)
+        axios.get(`/api/user/search/findByName?name=${currentUser}`)
             .then(user => user.data)
             .then (user => {
                 console.log("got here, axios get req", user);
-                let fav = user.favoriteDrinks.slice();
-                fav.push(thisRecipe);
-                axios(
-                    {
-                        method: 'post',
-                        url: '/api/user',
-                        data: {
-                            name: user.name,
-                            favoriteDrinks: fav
-                        }
-                    }
-                );
 
+                let fav = user.favoriteDrinks.slice();
+                let alreadyInFavs = false;
+                for (let i = 0; i < fav.length; i++) {
+                    if(fav[i].name == thisRecipe.name) {
+                        alreadyInFavs = true;
+                    }
+                }
+                if (!alreadyInFavs) {
+                    fav.push(thisRecipe);
+                    console.log("fav: ", fav);
+                    axios(
+                        {
+                            method: 'post',
+                            url: '/api/user',
+                            data: {
+                                id: user.name,
+                                name: user.name,
+                                email: user.email,
+                                password: user.password,
+                                favoriteDrinks: fav
+                            }
+                        }
+                    );
+                }
+                else{
+                    console.log("recipe already in favs");
+                    this.setState( { alreadyInFavs: true })
+                }
             })
     }
 
@@ -89,7 +105,14 @@ export default class SingleRecipe extends React.Component {
                     <div className = "col m12">
                         <button onClick = { this.onClickPlus } className="btn waves-effect waves-light btn-block btn-primary">Like it!</button>
                         <button onClick = { this.onClickMinus } className="btn waves-effect waves-light btn-block btn-primary">Meh.. </button>
-                        <button onClick = {this.onClickFavorite} className="btn waves-effect waves-light btn-block btn-primary">Save this recipe!</button>
+                        <button
+                            disabled = {
+                                
+                            }
+                            onClick = {this.onClickFavorite} className="btn waves-effect waves-light btn-block btn-primary">Save this recipe!</button>
+
+
+
                     </div>
                 </div>
             </div>
