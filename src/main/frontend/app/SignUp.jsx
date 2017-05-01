@@ -8,6 +8,9 @@ class Signup extends React.Component {
     constructor(props) {
         super(props);
         this.onSignupSubmit = this.onSignupSubmit.bind(this);
+        this.state = {
+            user : {}
+        }
     }
 
     render() {
@@ -62,7 +65,7 @@ class Signup extends React.Component {
         axios(
             {
                 method: 'post',
-                url: '/api/users',
+                url: '/api/user',
                 data: {
                     id: credentials.name,
                     name: credentials.name,

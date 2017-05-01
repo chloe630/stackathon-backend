@@ -32,6 +32,7 @@ export default class SingleUser extends React.Component{
                     (localStorage.getItem("userName") !== "") &&
                     (
                         <ul className="collection">
+
                             <li className="collection-item avatar">
                                 <img src="images/yuna.jpg" alt="" className="circle"/>
                                 <span className="title">{this.state.user.name}</span>
@@ -43,17 +44,28 @@ export default class SingleUser extends React.Component{
                             <li className="collection-item avatar">
                                 <i className="material-icons circle">star</i>
                                 <span className="title">My favorite drinks</span>
-                                {
-                                    this.state.favorite&&this.state.favorite.map(recipe => (
-                                        <div>
-                                            <p>{recipe.name}</p>
-                                            <p>{recipe.content}</p>
-                                            <p>{recipe.image}</p>
-                                            <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a>
-                                        </div>
-                                    ))
-                                }
                             </li>
+
+                            {
+                                this.state.favorite&&this.state.favorite.map(recipe => (
+                                    <li className="collection-item avatar">
+                                        <i className="material-icons circle">star</i>
+                                        <span className="title">{recipe.name}</span>
+                                        {
+                                            recipe.content.split(" ").map(ingredient => (
+                                                <div>
+                                                    <p>{ingredient}</p>
+                                                </div>
+                                                )
+                                            )
+                                        }
+
+                                        {/*<p>{recipe.content}</p>*/}
+                                        <p>{recipe.image}</p>
+                                        <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a>
+                                    </li>
+                                ))
+                            }
 
                         </ul>
                     )

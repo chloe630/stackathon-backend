@@ -50,8 +50,14 @@ export default class SingleRecipe extends React.Component {
             .then(user => user.data)
             .then (user => {
                 console.log("got here, axios get req", user);
+                var fav;
+                if (user.favoriteDrinks == null) {
+                    fav = [];
+                }
+                else {
 
-                let fav = user.favoriteDrinks.slice();
+                    fav = user.favoriteDrinks.slice();
+                }
                 let alreadyInFavs = false;
                 for (let i = 0; i < fav.length; i++) {
                     if(fav[i].name == thisRecipe.name) {
